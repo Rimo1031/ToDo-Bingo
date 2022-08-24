@@ -4,11 +4,11 @@ import React, { useState } from 'react';
 
 const Radio = ({
   value,
-  state,
+  checked,
   setState
 }: {
   value: number;
-  state: number;
+  checked: boolean;
   setState: React.Dispatch<React.SetStateAction<number>>;
 }) => {
   const name = value.toString();
@@ -19,7 +19,7 @@ const Radio = ({
         type="radio"
         value={value}
         id={name}
-        checked={state === value}
+        checked={checked}
         onClick={() => setState(value)}
       />
       {name}
@@ -38,7 +38,9 @@ const Select_Size = ({
   return (
     <div>
       <text>빙고 크기 선택: </text>
-      {BINGO_SIZE.map((bingo_size) => Radio({ value: bingo_size, state: size, setState: setSize }))}
+      {BINGO_SIZE.map((bingo_size) =>
+        Radio({ value: bingo_size, checked: bingo_size === size, setState: setSize })
+      )}
     </div>
   );
 };
