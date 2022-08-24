@@ -50,12 +50,15 @@ const Select_Game = () => {
   return (
     <div>
       <text>기종 선택: </text>
-      {GAME_LIST.map((game) => (
-        <label htmlFor={game.name}>
-          <input key={game.name} type="radio" value={game.value} id={game.name} />
-          {game.name}
-        </label>
-      ))}
+      {GAME_LIST.map((game) => {
+        const { name, value } = game;
+        return (
+          <label htmlFor={name}>
+            <input key={name} type="radio" value={value} id={name} />
+            {name}
+          </label>
+        );
+      })}
     </div>
   );
 };
@@ -71,7 +74,7 @@ const Bingo_Cell = () => {
 };
 
 const Bingo_Table = ({ state }: { state: number }) => {
-  const arr = Array(10)
+  const arr = Array(state)
     .fill(0)
     .map((_, i) => i + 1);
   return (
