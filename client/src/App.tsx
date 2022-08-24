@@ -75,10 +75,9 @@ const Bingo_Cell = () => {
 };
 
 const Bingo_Table = ({ state }: { state: number }) => {
-  const arr: number[] = [];
-  for (let i: number = 1; i <= state; i++) {
-    arr.push(i);
-  }
+  const arr = Array(10)
+    .fill(0)
+    .map((_, i) => i + 1);
   return (
     <table>
       <tbody>
