@@ -13,9 +13,6 @@ const Radio = ({
   state: number;
   setState: React.Dispatch<React.SetStateAction<number>>;
 }) => {
-  const handleRadioClick = (size: number) => {
-    setState(size);
-  };
   return (
     <label htmlFor={name}>
       <input
@@ -24,7 +21,7 @@ const Radio = ({
         value={value}
         id={name}
         checked={state === value}
-        onClick={() => handleRadioClick(value)}
+        onClick={() => setState(value)}
       />
       {name}
     </label>
