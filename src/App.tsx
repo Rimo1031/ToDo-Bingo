@@ -3,15 +3,19 @@
 import React, { useState } from 'react';
 
 const Radio = ({
+  name,
   value,
-  checked,
+  state,
   setState
 }: {
+  name: string;
   value: number;
-  checked: boolean;
+  state: number;
   setState: React.Dispatch<React.SetStateAction<number>>;
 }) => {
-  const name = value.toString();
+  const handleRadioClick = (size: number) => {
+    setState(size);
+  };
   return (
     <label htmlFor={name}>
       <input
@@ -19,8 +23,8 @@ const Radio = ({
         type="radio"
         value={value}
         id={name}
-        checked={checked}
-        onClick={() => setState(value)}
+        checked={state === value}
+        onClick={() => handleRadioClick(value)}
       />
       {name}
     </label>
@@ -39,7 +43,7 @@ const Select_Size = ({
     <div>
       <text>빙고 크기 선택: </text>
       {BINGO_SIZE.map((bingo_size) =>
-        Radio({ value: bingo_size, checked: bingo_size === size, setState: setSize })
+        Radio({ name: bingo_size.toString(), value: bingo_size, state: size, setState: setSize })
       )}
     </div>
   );
@@ -50,15 +54,12 @@ const Select_Game = () => {
   return (
     <div>
       <text>기종 선택: </text>
-      {GAME_LIST.map((game) => {
-        const { name, value } = game;
-        return (
-          <label htmlFor={name}>
-            <input key={name} type="radio" value={value} id={name} />
-            {name}
-          </label>
-        );
-      })}
+      {GAME_LIST.map((game) => (
+        <label htmlFor={game.name}>
+          <input key={game.name} type="radio" value={game.value} id={game.name} />
+          {game.name}
+        </label>
+      ))}
     </div>
   );
 };
@@ -73,10 +74,11 @@ const Bingo_Cell = () => {
   );
 };
 
-const Bingo_Table = ({ size }: { size: number }) => {
-  const arr = Array(size)
-    .fill(0)
-    .map((_, i) => i + 1);
+const Bingo_Table = ({ state }: { state: number }) => {
+  const arr: number[] = [];
+  for (let i: number = 1; i <= state; i++) {
+    arr.push(i);
+  }
   return (
     <table>
       <tbody>
@@ -94,7 +96,7 @@ const App = () => {
     <div className="App">
       <Select_Size size={size} setSize={setSize} />
       <Select_Game />
-      <Bingo_Table size={size} />
+      <Bingo_Table state={size} />
     </div>
   );
 };
