@@ -74,8 +74,8 @@ const Bingo_Cell = () => {
   );
 };
 
-const Bingo_Table = ({ size }: { size: number }) => {
-  const arr = Array(size)
+const Bingo_Table = ({ state }: { state: number }) => {
+  const arr = Array(state)
     .fill(0)
     .map((_, i) => i + 1);
   return (
@@ -95,7 +95,7 @@ const App = () => {
     <div className="App">
       <Select_Size size={size} setSize={setSize} />
       <Select_Game />
-      <Bingo_Table size={size} />
+      <Bingo_Table state={size} />
     </div>
   );
 };
