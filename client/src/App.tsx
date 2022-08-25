@@ -3,19 +3,15 @@
 import React, { useState } from 'react';
 
 const Radio = ({
-  name,
   value,
-  state,
+  checked,
   setState
 }: {
-  name: string;
   value: number;
-  state: number;
+  checked: boolean;
   setState: React.Dispatch<React.SetStateAction<number>>;
 }) => {
-  const handleRadioClick = (size: number) => {
-    setState(size);
-  };
+  const name = value.toString();
   return (
     <label htmlFor={name}>
       <input
@@ -23,8 +19,8 @@ const Radio = ({
         type="radio"
         value={value}
         id={name}
-        checked={state === value}
-        onClick={() => handleRadioClick(value)}
+        checked={checked}
+        onClick={() => setState(value)}
       />
       {name}
     </label>
@@ -43,7 +39,7 @@ const Select_Size = ({
     <div>
       <text>빙고 크기 선택: </text>
       {BINGO_SIZE.map((bingo_size) =>
-        Radio({ name: bingo_size.toString(), value: bingo_size, state: size, setState: setSize })
+        Radio({ value: bingo_size, checked: bingo_size === size, setState: setSize })
       )}
     </div>
   );
