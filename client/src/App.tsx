@@ -54,12 +54,15 @@ const Select_Game = () => {
   return (
     <div>
       <text>기종 선택: </text>
-      {GAME_LIST.map((game) => (
-        <label htmlFor={game.name}>
-          <input key={game.name} type="radio" value={game.value} id={game.name} />
-          {game.name}
-        </label>
-      ))}
+      {GAME_LIST.map((game) => {
+        const { name, value } = game;
+        return (
+          <label htmlFor={name}>
+            <input key={name} type="radio" value={value} id={name} />
+            {name}
+          </label>
+        );
+      })}
     </div>
   );
 };
