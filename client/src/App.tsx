@@ -3,19 +3,15 @@
 import React, { useState } from 'react';
 
 const Radio = ({
-  name,
   value,
-  state,
+  checked,
   setState
 }: {
-  name: string;
   value: number;
-  state: number;
+  checked: boolean;
   setState: React.Dispatch<React.SetStateAction<number>>;
 }) => {
-  const handleRadioClick = (size: number) => {
-    setState(size);
-  };
+  const name = value.toString();
   return (
     <label htmlFor={name}>
       <input
@@ -23,8 +19,8 @@ const Radio = ({
         type="radio"
         value={value}
         id={name}
-        checked={state === value}
-        onClick={() => handleRadioClick(value)}
+        checked={checked}
+        onClick={() => setState(value)}
       />
       {name}
     </label>
@@ -43,7 +39,7 @@ const Select_Size = ({
     <div>
       <text>빙고 크기 선택: </text>
       {BINGO_SIZE.map((bingo_size) =>
-        Radio({ name: bingo_size.toString(), value: bingo_size, state: size, setState: setSize })
+        Radio({ value: bingo_size, checked: bingo_size === size, setState: setSize })
       )}
     </div>
   );
@@ -54,12 +50,15 @@ const Select_Game = () => {
   return (
     <div>
       <text>기종 선택: </text>
-      {GAME_LIST.map((game) => (
-        <label htmlFor={game.name}>
-          <input key={game.name} type="radio" value={game.value} id={game.name} />
-          {game.name}
-        </label>
-      ))}
+      {GAME_LIST.map((game) => {
+        const { name, value } = game;
+        return (
+          <label htmlFor={name}>
+            <input key={name} type="radio" value={value} id={name} />
+            {name}
+          </label>
+        );
+      })}
     </div>
   );
 };
@@ -74,8 +73,8 @@ const Bingo_Cell = () => {
   );
 };
 
-const Bingo_Table = ({ state }: { state: number }) => {
-  const arr = Array(state)
+const Bingo_Table = ({ size }: { size: number }) => {
+  const arr = Array(size)
     .fill(0)
     .map((_, i) => i + 1);
   return (
@@ -95,7 +94,7 @@ const App = () => {
     <div className="App">
       <Select_Size size={size} setSize={setSize} />
       <Select_Game />
-      <Bingo_Table state={size} />
+      <Bingo_Table size={size} />
     </div>
   );
 };
